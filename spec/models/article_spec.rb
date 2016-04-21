@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Article do
-  describe 'associations' do
-    def association
-      described_class.reflect_on_association(:comments)
-    end
+  it 'is an article' do
+    expect(Article.new).to be_a(Article)
   end
 end
