@@ -34,6 +34,7 @@ By the end of this lesson, students should be able to:
 1.  [Fork and clone](https://github.com/ga-wdi-boston/meta/wiki/ForkAndClone)
     this repository.
 1.  Install dependencies with `bundle install`.
+1.  Run `rake db:create` and `rake db:migrate`.
 
 ## Outside-In Testing
 
@@ -50,8 +51,8 @@ step of the development process.
 
 Unit tests drive implementation and break more often, but they're smaller in
 scale and faster to execute. Unit tests test developer experience. Unit tests
-don't break down the problem into smaller, they give you the confidence that the
-smallest pieces work as expected. Unit tests document your code base.
+don't break down the problem into smaller pieces, they give you the confidence
+that the smallest pieces work as expected. Unit tests document your code base.
 
 Both of these tests provide *documentation* of your code. Writing tests makes
 refactoring easy because we can change one thing and see how it affects the
@@ -82,31 +83,83 @@ spec (request spec) should pass automatically!
 Let the tests tell you what to do next, and you'll never have to think about
 your next task. It helps us get in "the zone"!
 
-![in-the-zone](https://cloud.githubusercontent.com/assets/388761/13177815/7ed80d26-d6e9-11e5-8cf8-56d896cd0fbe.gif)
+## GET All Articles
 
-## Demo: `GET /articles` Request Spec
+### Demo: `GET /articles` Request Spec
 
-## Code-along: `GET /articles` Routing Spec
+To check our specs, we run `rspec spec` from the command line.
+What output to we get?
 
-## Code-along: `articles#index` Controller Spec
+```ruby
+Failures:
+  1) Articles API GET /articles lists all articles
+     Failure/Error: get '/articles'
 
-## Lab: Write `ArticlesController`
+     ActionController::RoutingError:
+       No route matches [GET] "/articles"
+     # ./spec/requests/articles_spec.rb:29:in `block (3 levels) in <top (required)>'
+```
 
-## Code-along: `Article` Model Spec
+This output tells us exactly what went wrong (or more accurately, what did not
+  go as expected), and should be treated as our guide towards working code.
 
-## Lab: Write `Article` Model
+### Code-along: `GET /articles` Routing Spec
 
-## Lab: Run the Specs
+Let's work on our `GET /articles` routing spec in [spec/routing/articles_spec.rb](spec/routing/articles_spec.rb) together
+to ensure that our routes are mapped to the correct controller method.
 
-## Lab: `GET /articles/:id` Request Spec
+### Code-along: `articles#index` Controller Spec
 
-## Lab: `GET /articles/:id` Routing Spec
+To wrap up our checks that all articles are correctly returned from our `index`
+ method, we'll need a passing test for the controller method itself: [spec/controllers/articles_spec.rb](spec/controllers/articles_spec.rb).
 
-## Lab: `articles#show` Controller Spec
+## GET One Article
 
-## Lab: Write `articles#show`
+### Code-along: `GET /articles/:id` Request Spec
 
-## Bonus Challenge
+In [spec/requests/articles_spec.rb](spec/requests/articles_spec.rb), let's
+make sure our API is returning a single article correctly.
+
+### Code-along: `GET /articles/:id` Routing Spec
+
+How do we make sure our routes are set to receive GET requests for a single
+article? How does routing to `articles#show` differ from `articles#index`?
+
+### Lab: `articles#show` Controller Spec
+
+Working off of our `articles#index`, build out the two `GET show` tests in
+[spec/controllers/articles_spec.rb](spec/controllers/articles_spec.rb) to
+pass. Again, remember how `articles#show` differs from `articles#index` and
+be sure to be testing against that.
+
+## Completing Controller Specs
+
+### Lab: Write `ArticlesController`
+
+Continue working in [spec/controllers/articles_spec.rb](spec/controllers/articles_spec.rb) to
+create passing tests for the `POST`, `PATCH`, and `DELETE` controller actions.
+
+## Testing Our Model
+
+### Code-along: `Article` Model Spec
+
+In [spec/models/articles_spec.rb](spec/models/articles_spec.rb), we will need
+to test to make sure that new Articles created are new instances of the
+`Article` model.
+
+### Lab: Write `Article` Model and Run the Specs
+
+Let's get the test for our `Article` Model working.
+
+## Further Learning
+
+Build out the Controller, Model, and Routes for a `Comment` entity that
+belongs to `Article`. Let request, routing, controller and model tests
+drive your build.
+
+*Note: a `comments` migration has already been created. The rest is up to you.*
+
+### Bonus Challenge
 
 If you're looking for extra challenge or practice once you've completed the
 above, create a voting feature for articles using outside-in testing.
@@ -116,7 +169,7 @@ resource) with different controller actions than you're used to (perhaps a
 `up` and `down` actions instead of `show` or `index`). Think about what it
 means to vote something, and how you might test it. Start by sketching out
 page flow on paper. Try to outline your work at a high level before you
-start testind and coding.
+start testing and coding.
 
 ## Additional Resources
 
