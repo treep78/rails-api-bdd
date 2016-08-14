@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Article do
+  # http://api.rubyonrails.org/classes/ActiveRecord/Reflection/ClassMethods.html#method-i-reflect_on_association
   describe 'associations' do
     def association
       described_class.reflect_on_association(:comments)
