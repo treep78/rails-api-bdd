@@ -23,12 +23,13 @@ RSpec.describe ArticlesController do
   describe 'GET index' do
     before(:each) { get :index }
     it 'is succesful' do
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(200) # be_success
     end
 
     it 'renders a JSON response' do
       articles_collection = JSON.parse(response.body)
       expect(articles_collection).not_to be_nil
+      expect(articles_collection.first['title']).to eq(article.title)
     end
   end
 
@@ -83,7 +84,7 @@ RSpec.describe ArticlesController do
 
   describe 'DELETE destroy' do
     it 'is successful and returns an empty response' do
-      delete :destroy, id: article.id, format: :json
+      delete :destroy, id: article.id
 
       expect(response).to be_successful
       expect(response.body).to be_empty

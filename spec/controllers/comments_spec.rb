@@ -26,6 +26,7 @@ RSpec.describe CommentsController do
 
     it 'is successful' do
       expect(response.status).to eq(200)
+      expect(response).to be_success
     end
 
     it 'renders a JSON response' do

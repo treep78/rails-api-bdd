@@ -78,7 +78,7 @@ RSpec.describe 'Articles API' do
 
   describe 'DELETE /articles/:id' do
     it 'deletes an article' do
-      delete "/articles/#{article.id}", article: { id: article.id }, format: :json
+      delete "/articles/#{article.id}"
 
       expect(response).to be_success
       expect(response.body).to be_empty
