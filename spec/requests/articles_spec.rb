@@ -47,6 +47,8 @@ RSpec.describe 'Articles API' do
       # expect the list of articles that we get from the server to
       # be the same length as the list of articles we created
       expect(articles_response.length).to eq(articles.count)
+      # check that the first article's title is equal
+      # to the article title that we created
       expect(articles_response.first['title']).to eq(article['title'])
     end
   end
